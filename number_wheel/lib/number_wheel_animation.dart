@@ -2,10 +2,23 @@ import 'dart:async';
 
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
-import 'package:number_wheel/number_formatter.dart';
+import 'package:number_wheel_animation/number_formatter.dart';
 
 typedef HSYNumberWheelAnimation = StreamController<String> Function(
     String oldText);
+
+const List<String> HSYNumberWheelDatas = [
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+];
 
 class HSYNumberWheelText extends StatefulWidget {
   /// 纯数字文本
@@ -29,6 +42,9 @@ class HSYNumberWheelText extends StatefulWidget {
   /// 对其方式，默认左对齐
   final MainAxisAlignment mainAxisAlignment;
 
+  /// 如果widget.text一开始有值，是否自动执行第一次动画，默认执行
+  final bool animatedFirst;
+
   /// 每次需要执行外部刷新时，通过返回一个Stream来发送动画信息
   final HSYNumberWheelAnimation onAnimation;
 
@@ -38,6 +54,7 @@ class HSYNumberWheelText extends StatefulWidget {
     this.duration = const Duration(milliseconds: 500),
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.showThousands = true,
+    this.animatedFirst = true,
     this.textHeights = 35.0,
     this.decimals = 2,
     this.textStyle,
@@ -47,26 +64,13 @@ class HSYNumberWheelText extends StatefulWidget {
   _HSYNumberWheelTextState createState() => _HSYNumberWheelTextState();
 }
 
-class _HSYNumberWheelTextState extends State<HSYNumberWheelText> {
-  ///
+class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
+    with WidgetsBindingObserver {
+  /// 缓存滚轮数据
   List<dynamic> _textNumbers = [];
-  String _liveText;
 
-  /// 0-9直接的数字
-  List<String> get _numbers {
-    return [
-      '0',
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-    ];
-  }
+  /// 真实的text，初始为widget.text
+  String _liveText;
 
   /// 将数字文本解析成对应的数据
   List<dynamic> get _toMapDataNumbers {
@@ -79,13 +83,13 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText> {
         : _liveText);
     for (int i = 0; i < realText.length; i++) {
       dynamic text = realText[i];
-      final bool isNumber = _numbers.contains(text);
+      final bool isNumber = HSYNumberWheelDatas.contains(text);
       if (isNumber) {
         text = {
           ScrollController(): {
-            _numbers.firstWhere((element) {
+            HSYNumberWheelDatas.firstWhere((element) {
               return (Decimal.tryParse(element) == Decimal.tryParse(text));
-            }): _numbers
+            }): HSYNumberWheelDatas
           },
         };
       }
@@ -140,12 +144,22 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText> {
         );
       });
     });
+
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (this.widget.animatedFirst) {
+        Future.delayed(Duration(milliseconds: 350), () {
+          _animatedTo();
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     _dataBeats.forEach((key, value) {
       key.dispose();
     });
