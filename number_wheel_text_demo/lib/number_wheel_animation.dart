@@ -136,21 +136,14 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
     this.widget.onAnimation(_liveText).stream.listen((news) {
       _liveText = Decimal.tryParse((news ?? '0')).toString();
       setState(() {
-        Future.delayed(
-          Duration(milliseconds: 350),
-          () {
-            _animatedTo();
-          },
-        );
+        _delayedAnimated();
       });
     });
 
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (this.widget.animatedFirst) {
-        Future.delayed(Duration(milliseconds: 350), () {
-          _animatedTo();
-        });
+        _delayedAnimated();
       }
     });
   }
@@ -204,6 +197,15 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
           );
         }).toList(),
       ),
+    );
+  }
+
+  void _delayedAnimated() {
+    Future.delayed(
+      Duration(milliseconds: 350),
+          () {
+        _animatedTo();
+      },
     );
   }
 
