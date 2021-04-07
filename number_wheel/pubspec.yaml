@@ -1,7 +1,7 @@
 name: number_wheel
 description: A new Flutter package project.
 version: 0.0.1
-author: songyao.huang.pub@gmail.com
+#author: songyao.huang.pub@gmail.com、huangsongyao@foxmail.com
 homepage: https://github.com/huangsongyao/number_wheel_text
 
 environment:
