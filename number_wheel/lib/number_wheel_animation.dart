@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
-import 'package:number_wheel_animation/number_formatter.dart';
+import 'package:number_wheel/number_formatter.dart';
 
 typedef HSYNumberWheelAnimation = StreamController<String> Function(
     String oldText);
