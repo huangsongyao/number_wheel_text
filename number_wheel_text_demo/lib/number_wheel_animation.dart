@@ -85,12 +85,16 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
       dynamic text = realText[i];
       final bool isNumber = HSYNumberWheelDatas.contains(text);
       if (isNumber) {
+        final Map<String, List> datas = {
+          HSYNumberWheelDatas.firstWhere((element) {
+            return (Decimal.tryParse(element) == Decimal.tryParse(text));
+          }): HSYNumberWheelDatas
+        };
         text = {
-          ScrollController(): {
-            HSYNumberWheelDatas.firstWhere((element) {
-              return (Decimal.tryParse(element) == Decimal.tryParse(text));
-            }): HSYNumberWheelDatas
-          },
+          ScrollController(
+              initialScrollOffset: (this.widget.animatedFirst
+                  ? 0.0
+                  : _scrollToOffsets(datas.keys.first))): datas,
         };
       }
       textNumbers.add(text);
@@ -203,7 +207,7 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
   void _delayedAnimated() {
     Future.delayed(
       Duration(milliseconds: 350),
-          () {
+      () {
         _animatedTo();
       },
     );
@@ -213,13 +217,18 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
     _dataBeats.forEach((key, value) {
       final ScrollController scrollController = key;
       scrollController.animateTo(
-        (Decimal.tryParse(value.keys.first) *
-                Decimal.tryParse(_textHeights.toString()))
-            .toDouble(),
+        _scrollToOffsets(value.keys.first),
         duration: this.widget.duration,
         curve: Curves.easeIn,
       );
     });
+  }
+
+  double _scrollToOffsets(String indexStr) {
+    return ((Decimal.tryParse(indexStr) *
+                Decimal.tryParse(_textHeights.toString()))
+            .toDouble() ??
+        0.0);
   }
 
   bool _isMapElement(dynamic element) {

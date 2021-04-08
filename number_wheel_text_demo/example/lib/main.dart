@@ -44,6 +44,7 @@ class _MyAppState extends State<MyApp> {
               HSYNumberWheelText(
                 text: '2323.43',
                 mainAxisAlignment: MainAxisAlignment.center,
+                // animatedFirst: false,
                 onAnimation: (String old) {
                   return _streamController;
                 },
