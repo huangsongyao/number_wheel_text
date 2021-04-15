@@ -10,7 +10,9 @@
 
 demo效果: https://user-images.githubusercontent.com/9814192/113866876-68b39480-97e0-11eb-95e6-09d672fbc564.mp4
 
-example:
+# example:
+
+``` 
 
 HSYNumberWheelText(
   text: '2323.43',
@@ -20,6 +22,10 @@ HSYNumberWheelText(
   },
 )
 
+```
+
+``` 
+
 void _sendNext() {
   num next = (Random().nextInt(1000)).toDouble() +
         (Random().nextDouble().toDouble());
@@ -27,5 +33,6 @@ void _sendNext() {
 }
 
 
+```
 
 
