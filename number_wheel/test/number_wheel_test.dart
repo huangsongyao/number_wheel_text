@@ -19,9 +19,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _streamController = StreamController<String>();
-    // Future.delayed(Duration(milliseconds: 350), () {
-    //   _sendNext();
-    // });
   }
 
   @override

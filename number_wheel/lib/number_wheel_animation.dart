@@ -34,7 +34,7 @@ class HSYNumberWheelText extends StatefulWidget {
   final bool showThousands;
 
   /// 单个数字的高度，默认为35.0
-  final num textHeights;
+  final double textHeights;
 
   /// 动画时间，默认为0.5s
   final Duration duration;
@@ -181,6 +181,7 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
                 child: Column(
                   children: toMaps.values.first.values.first.map((number) {
                     return Container(
+                      height: _textHeights,
                       alignment: Alignment.center,
                       child: Text(
                         number,
@@ -216,11 +217,13 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
   void _animatedTo() {
     _dataBeats.forEach((key, value) {
       final ScrollController scrollController = key;
-      scrollController.animateTo(
-        _scrollToOffsets(value.keys.first),
-        duration: this.widget.duration,
-        curve: Curves.easeIn,
-      );
+      if (scrollController.hasClients) {
+        scrollController.animateTo(
+          _scrollToOffsets(value.keys.first),
+          duration: this.widget.duration,
+          curve: Curves.easeIn,
+        );
+      }
     });
   }
 

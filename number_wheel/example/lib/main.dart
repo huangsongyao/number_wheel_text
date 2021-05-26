@@ -49,6 +49,11 @@ class _MyAppState extends State<MyApp> {
                 onAnimation: (String old) {
                   return _streamController;
                 },
+                textHeights: 50.0,
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
               ),
               SizedBox(
                 height: 80,
