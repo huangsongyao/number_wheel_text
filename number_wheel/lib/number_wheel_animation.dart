@@ -74,6 +74,7 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
 
   /// 将数字文本解析成对应的数据
   List<dynamic> get _toMapDataNumbers {
+    _releaseControllers();
     final List<dynamic> textNumbers = [];
     final String realText = (this.widget.showThousands
         ? NumberFormatter.thousandSeparatorFormatterStr(
@@ -139,9 +140,11 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
     _textNumbers = _toMapDataNumbers;
     this.widget.onAnimation(_liveText).stream.listen((news) {
       _liveText = Decimal.tryParse((news ?? '0')).toString();
-      setState(() {
-        _delayedAnimated();
-      });
+      if (mounted) {
+        setState(() {
+          _delayedAnimated();
+        });
+      }
     });
 
     WidgetsBinding.instance.addObserver(this);
@@ -157,9 +160,7 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
     // TODO: implement dispose
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
-    _dataBeats.forEach((key, value) {
-      key.dispose();
-    });
+    _releaseControllers();
   }
 
   @override
@@ -236,5 +237,11 @@ class _HSYNumberWheelTextState extends State<HSYNumberWheelText>
 
   bool _isMapElement(dynamic element) {
     return (element is Map);
+  }
+
+  void _releaseControllers() {
+    _dataBeats.forEach((key, value) {
+      key.dispose();
+    });
   }
 }
