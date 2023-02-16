@@ -1,9 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'dart:math';
-
-import 'package:number_wheel/number_wheel_animation.dart';
+import 'package:number_wheel/idler_wheel.dart';
+import 'package:number_wheel/wheel_controller.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,71 +14,48 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  StreamController<String> _streamController;
+  final ValueController _controller = ValueController();
 
   @override
   void initState() {
     super.initState();
-    _streamController = StreamController<String>();
-    // Future.delayed(Duration(milliseconds: 350), () {
-    //   _sendNext();
-    // });
+    _update();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 80,
-              ),
-              HSYNumberWheelText(
-                text: '2323.43',
-                mainAxisAlignment: MainAxisAlignment.center,
-                // animatedFirst: false,
-                onAnimation: (String old) {
-                  return _streamController;
-                },
-                textHeights: 50.0,
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-              SizedBox(
-                height: 80,
-              ),
-              GestureDetector(
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text('clicke me'),
-                  color: Colors.amber,
-                  width: 100,
-                  height: 100,
-                ),
-                onTap: () {
-                  _sendNext();
-                },
-              ),
-            ],
+    return ProviderScope(
+      child: MaterialApp(
+        home: Scaffold(
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            title: const Text('Plugin example app'),
+          ),
+          body: Center(
+            child: IdlerWheel(
+              valueController: _controller,
+              useSeparator: true,
+            ),
           ),
         ),
       ),
     );
   }
 
-  void _sendNext() {
-    num next = (Random().nextInt(1000)).toDouble() +
-        (Random().nextDouble().toDouble());
-    _streamController.sink.add(next.toString());
+  void _update() {
+    final news = double.parse(_controller.text) + 100.0;
+    Future.delayed(
+      Duration(seconds: 1),
+      () {
+        _controller.setText = news.toString();
+        _update();
+      },
+    );
   }
 }
