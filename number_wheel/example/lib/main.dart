@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
 
+import 'dart:async';
 import 'dart:math';
 
-import 'package:number_wheel/number_wheel_animation.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -42,19 +43,19 @@ class _MyAppState extends State<MyApp> {
               SizedBox(
                 height: 80,
               ),
-              HSYNumberWheelText(
-                text: '2323.43',
-                mainAxisAlignment: MainAxisAlignment.center,
-                // animatedFirst: false,
-                onAnimation: (String old) {
-                  return _streamController;
-                },
-                textHeights: 50.0,
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
+              // HSYNumberWheelText(
+              //   text: '2323.43',
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   // animatedFirst: false,
+              //   onAnimation: (String old) {
+              //     return _streamController;
+              //   },
+              //   textHeights: 50.0,
+              //   textStyle: TextStyle(
+              //     color: Colors.white,
+              //     fontSize: 24,
+              //   ),
+              // ),
               SizedBox(
                 height: 80,
               ),
