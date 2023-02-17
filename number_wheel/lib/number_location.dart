@@ -63,7 +63,7 @@ abstract class MapNumber {
         intString = '${NumberSymbol.zeroNumber}$intString';
       }
       if (useSeparator) {
-        intString = intString.toCurrency(digit: 0);
+        intString = intString.toFormat(digit: 0);
       }
       final numbers = List.generate(
         intString.length,
@@ -82,7 +82,7 @@ abstract class MapNumber {
     }
     var intString = replace;
     if (useSeparator) {
-      intString = intString.toCurrency(digit: 0);
+      intString = intString.toFormat(digit: 0);
     }
     final integers = List.generate(
       intString.length,

@@ -30,7 +30,7 @@ class IdlerWheel extends ConsumerStatefulWidget {
     this.precision = 8,
     this.integer = -1,
     this.rich = 6,
-    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.mainAxisAlignment = MainAxisAlignment.center,
     this.useSeparator = false,
     this.onChanged,
     this.leading,
@@ -104,7 +104,7 @@ class _IdlerWheelState extends ConsumerState<IdlerWheel> {
                 (widget.leading ?? const SizedBox()),
                 if (isZero)
                   Text(
-                    notWorkByUserAsset,
+                    '- -',
                     style: style,
                   ),
                 if (!isZero)
@@ -190,12 +190,12 @@ class _RepaintListener extends ChangeNotifier {
     double heights,
   ) async {
     if (value
-        .toCurrency(
+        .toFormat(
           digit: _precision,
         )
         .replace()
         .inequality(_value
-            .toCurrency(
+            .toFormat(
               digit: _precision,
             )
             .replace())) {
