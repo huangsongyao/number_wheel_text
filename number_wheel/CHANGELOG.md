@@ -6,21 +6,8 @@
 
 example:
 
-HSYNumberWheelText(
-  text: '2323.43',
-  mainAxisAlignment: MainAxisAlignment.center,
-  onAnimation: (String old) {
-    return _streamController;
-  },
+IdlerWheel(
+valueController: _controller,
+useSeparator: true,
 )
-
-void _sendNext() {
-  num next = (Random().nextInt(1000)).toDouble() +
-        (Random().nextDouble().toDouble());
-  _streamController.sink.add(next.toString());
-}
-
-这里通过外部返回一个StreamController来从外部控制内部实现数字跳动的动画效果，首次输入的值是否跳动也可以根据实际需要决定。
-
-
 
