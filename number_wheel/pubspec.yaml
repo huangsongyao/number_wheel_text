@@ -1,6 +1,6 @@
 name: number_wheel
 description: 一个数字跳动效果的text widget小部件，支持金额千分位。
-version: 0.1.1
+version: 0.1.2
 #author: songyao.huang.pub@gmail.com、huangsongyao@foxmail.com
 homepage: https://github.com/huangsongyao/number_wheel_text
 
