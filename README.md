@@ -5,22 +5,10 @@
 # 使用方式
 //外部控制动画，这里需要返回一个流控制器，在有需要的地方，通过流控制器给部件内部发送消息，从而执行动画
 ```
-HSYNumberWheelText(
-    text: '2323.43',
-    mainAxisAlignment: MainAxisAlignment.center,
-    onAnimation: (String old) {
-        return _streamController;
-    },
-),
 
-```
-``` 
-
-void _sendNext() {
-    num next = (Random().nextInt(1000)).toDouble() +
-        (Random().nextDouble().toDouble());
-    _streamController.sink.add(next.toString());
-}
-
+IdlerWheel(
+valueController: _controller,
+useSeparator: true,
+)
 
 ```
