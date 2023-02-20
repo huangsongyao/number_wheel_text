@@ -9,6 +9,19 @@ import 'package:number_wheel/wheel_controller.dart';
 import 'calculate.dart';
 import 'number_location.dart';
 
+/*
+* action: 头部组件
+* leading: 尾部组件
+* valueController: 数值控制器
+* mainAxisAlignment: 对齐风格
+* onChanged: 监听值改变
+* richStyle: 富文本风格
+* style: 正常文本风格
+* useSeparator: 是否使用千分位分隔符
+* precision: 小数部分精度长度
+* integer: 整数部分精度长度
+* rich: 富文本长度
+* */
 class IdlerWheel extends ConsumerStatefulWidget {
   final Widget? action;
   final Widget? leading;
@@ -35,7 +48,8 @@ class IdlerWheel extends ConsumerStatefulWidget {
     this.onChanged,
     this.leading,
     this.action,
-  }) : super(key: key);
+  })  : assert(rich <= precision, "富文本精度不能超过小数点部分精度长度"),
+        super(key: key);
 
   @override
   _IdlerWheelState createState() => _IdlerWheelState();
