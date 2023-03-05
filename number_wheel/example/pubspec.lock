@@ -53,10 +53,10 @@ packages:
     dependency: transitive
     description:
       name: decimal
-      sha256: d2a3287af38958b80b414f755da932e4413f89937ca731d382729e18b4af6178
+      sha256: "7e6735d63c3fdeff3d20b60fde7fd974145110fef414256dd53d5cfc4c1fa1b4"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.5"
+    version: "1.5.0"
   fake_async:
     dependency: transitive
     description:
@@ -174,10 +174,10 @@ packages:
     dependency: transitive
     description:
       name: rational
-      sha256: e8ffe5376ffd9047ff0b0acf41ebef4409805b67df6ee0b547231429c70f16ae
+      sha256: "49ba0eb1a7b0d39358998cbbd4d4a384382a83ac02f433aefc567853c84ed975"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.8"
+    version: "1.2.1"
   riverpod:
     dependency: transitive
     description:

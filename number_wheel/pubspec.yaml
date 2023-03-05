@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
 
   intl: ^0.16.0
-  decimal: ^0.3.5
+  decimal: ^1.5.0
   flutter_riverpod: ^2.2.0
   hooks_riverpod: ^2.2.0
   provider: ^6.0.5

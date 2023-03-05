@@ -33,17 +33,119 @@ class _MyAppState extends State<MyApp> {
     return ProviderScope(
       child: MaterialApp(
         home: Scaffold(
-          backgroundColor: Colors.black,
-          appBar: AppBar(
-            title: const Text('Plugin example app'),
-          ),
-          body: Center(
-            child: IdlerWheel(
-              valueController: _controller,
-              useSeparator: true,
-            ),
+          body: ListView(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.blue,
+                      Colors.white,
+                      Colors.white,
+                      Colors.white,
+                      Colors.white,
+                      Colors.white,
+                      Colors.white,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      height: 200,
+                      margin: EdgeInsets.symmetric(horizontal: 24.0)
+                          .copyWith(bottom: 50),
+                      color: Colors.lightGreen,
+                    );
+                  },
+                  itemCount: 100,
+                ),
+              ),
+              // Stack(
+              //   alignment: AlignmentDirectional.centerStart,
+              //   fit: StackFit.expand,
+              //   children: [
+              //     Positioned(
+              //       child: Container(
+              //         decoration: BoxDecoration(
+              //           gradient: LinearGradient(
+              //             colors: [
+              //               Colors.blue,
+              //               Colors.white,
+              //             ],
+              //             begin: Alignment.topCenter,
+              //             end: Alignment.bottomCenter,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     ListView.builder(
+              //       shrinkWrap: true,
+              //       physics: NeverScrollableScrollPhysics(),
+              //       itemBuilder: (BuildContext context, int index) {
+              //         return Container(
+              //           height: 200,
+              //           margin: EdgeInsets.symmetric(horizontal: 24.0)
+              //               .copyWith(bottom: 50),
+              //           color: Colors.lightGreen,
+              //         );
+              //       },
+              //       itemCount: 100,
+              //     ),
+              //   ],
+              // ),
+            ],
           ),
         ),
+
+        // home: Stack(
+        //   alignment: AlignmentDirectional.centerStart,
+        //   fit: StackFit.expand,
+        //   children: [
+        //     Positioned(
+        //       child: Container(
+        //         decoration: BoxDecoration(
+        //           gradient: LinearGradient(
+        //             colors: [
+        //               Colors.blue,
+        //               Colors.white,
+        //             ],
+        //             begin: Alignment.topCenter,
+        //             end: Alignment.bottomCenter,
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //     ListView.builder(
+        //       itemBuilder: (BuildContext context, int index) {
+        //         return Container(
+        //           height: 200,
+        //           margin: EdgeInsets.symmetric(horizontal: 24.0)
+        //               .copyWith(bottom: 50),
+        //           color: Colors.lightGreen,
+        //         );
+        //       },
+        //       itemCount: 100,
+        //     ),
+        //   ],
+        // ),
+
+        // home: Scaffold(
+        //   backgroundColor: Colors.black,
+        //   appBar: AppBar(
+        //     title: const Text('Plugin example app'),
+        //   ),
+        //   body: Center(
+        //     child: IdlerWheel(
+        //       valueController: _controller,
+        //       useSeparator: true,
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }
